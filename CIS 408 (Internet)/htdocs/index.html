@@ -1,0 +1,182 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang=""> <![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="js/vendor/jquery.min.js"></script>
+	<link rel='stylesheet' href='css/winstrap.min.css'>
+	<link rel='stylesheet' href='css/winstrap-optional.min.css'>
+	<!--<link rel='stylesheet' href='css/hooded.css'>-->
+</head>
+
+<title> Groovy Music </title>
+
+<body>
+	<!-- Credits: Uses the winstrap bootstrap theme https://github.com/winjs/winstrap -->
+
+	<!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.3</p>
+	<![endif]-->
+	<div class="type-t5">Redmond Groovy Music</div>
+	<ul class="nav nav-tabs color-fill-accent-vivid-high theme-alt" role="tablist">
+		<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+		<li role="presentation"><a href="#songs" aria-controls="songs" role="tab" data-toggle="tab">Songs</a></li>
+		<li role="presentation"><a href="#artists" aria-controls="artists" role="tab" data-toggle="tab">Artists</a></li>
+		<li role="presentation"><a href="#price" aria-controls="price" role="tab" data-toggle="tab">Price</a></li>
+		<li role="presentation"><a href="#year" aria-controls="year" role="tab" data-toggle="tab">Year</a></li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="home">
+			Click one of the buttons above to search for the track you want. Or, uh<br><br>
+			<div class="color-fill-accent-neutral-mid">
+				<div class="type-t3">Millions of songs. Everywhere you go.</div>
+
+				<div class="type-t5">Rev up, chill out, or get down. <a href="https://www.microsoft.com/en-us/groove">Groove's</a> got music for every minute
+					of your day.</div>
+
+			</div>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="songs">
+			<form class="navbar-form navbar-left" role="search" submit="return false;">
+				<div class="form-group">
+					<input id="q_songs" type="search" class="form-control" placeholder="Search for Songs">
+				</div>
+				<button id="b_songs" type="button" class="btn btn-default"></button>
+			</form>
+			<div class="color-vivid-low">
+				<p id="jsonSongs" class="type-p4"></p>
+			</div>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="artists">
+			<form class="navbar-form navbar-left" role="search" submit="return false;">
+				<div class="form-group">
+					<input id="q_artists" type="search" class="form-control" placeholder="Search for Artists">
+				</div>
+				<button id="b_artists" type="button" class="btn btn-default"></button>
+			</form>
+			<div class="color-vivid-low">
+				<p id="jsonArtists" class="type-p4"></p>
+			</div>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="price">
+			<form class="navbar-form navbar-left" role="search" submit="return false;">
+				<div class="form-group">
+					<input id="q_prices" type="search" class="form-control" placeholder="Search via Prices" kind=3>
+				</div>
+				<button id="b_prices" type="button" class="btn btn-default"></button>
+			</form>
+			<div class="color-vivid-low">
+				<p id="jsonPrices" class="type-p4"></p>
+			</div>
+		</div>
+
+		<div role="tabpanel" class="tab-pane" id="year">
+			<form class="navbar-form navbar-left" role="search" submit="return false;">
+				<div class="form-group">
+					<input id="q_year" type="search" class="form-control" placeholder="Search By Year" kind=4>
+				</div>
+				<button id="b_year" type="button" class="btn btn-default"></button>
+			</form>
+			<div class="color-vivid-low">
+				<p id="jsonYear" class="type-p4"></p>
+			</div>
+		</div>
+
+	</div>
+
+
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/app.js"></script>
+
+	<script>
+		var xmlhttp;
+		var res;
+		var url = 'search_results.php';
+		var kind;
+
+		var but_songs = document.getElementById("b_songs");
+		but_songs.onclick = function () {
+			var data = document.getElementById("q_songs").value;
+			kind = "1";
+			getJSONfromPHP(url, data, kind);
+		}
+
+		var but_songs = document.getElementById("b_artists");
+		but_songs.onclick = function () {
+			var data = document.getElementById("q_artists").value;
+			kind = "2";
+			getJSONfromPHP(url, data, kind);
+		}
+
+		var but_songs = document.getElementById("b_prices");
+		but_songs.onclick = function () {
+			var data = document.getElementById("q_prices").value;
+			kind = "3";
+			getJSONfromPHP(url, data, kind);
+		}
+
+		var but_songs = document.getElementById("b_year");
+		but_songs.onclick = function () {
+			var data = document.getElementById("q_year").value;
+			kind = "4";
+			getJSONfromPHP(url, data, kind);
+		}
+
+		function getJSONfromPHP(url, data, kind) {
+			xmlhttp = new XMLHttpRequest();
+			if (!xmlhttp) {
+				alert('Giving up :( Cannot create an XMLHTTP instance');
+				return false;
+			}
+			xmlhttp.onreadystatechange = alertContents;
+			xmlhttp.open('POST', url);
+			xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xmlhttp.send('query=' + encodeURIComponent(data) + '&kind=' + encodeURIComponent(kind));
+		}
+
+		var alertContents = function () {
+			if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+				if (xmlhttp.status === 200) {
+					if (xmlhttp.responseText == "") {
+						return;
+					}
+					else {
+						// console.log(xmlhttp.responseText);
+						// res = JSON.parse(xmlhttp.responseText);
+						switch (kind) {
+							case "1":
+								document.getElementById("jsonSongs").innerText = xmlhttp.responseText;
+								break;
+
+							case "2":
+								document.getElementById("jsonArtists").innerText = xmlhttp.responseText;
+								break;
+
+							case "3":
+								document.getElementById("jsonPrices").innerText = xmlhttp.responseText;
+								break;
+
+							case "4":
+								document.getElementById("jsonYear").innerText = xmlhttp.responseText;
+								break;
+						}
+					}
+				} else {
+					alert('There was a problem with the request.');
+				}
+			}
+		}
+	</script>
+</body>
+
+
+
+</html>

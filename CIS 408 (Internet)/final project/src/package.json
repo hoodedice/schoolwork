@@ -1,0 +1,23 @@
+{
+  "name": "cet_inventory",
+  "version": "0.0.1",
+  "description": "inventory software for cet and internet programming final project",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.15.2",
+    "expressjs": "^1.0.1",
+    "mongodb": "^2.2.26",
+    "xmldom": "^0.1.27"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/hoodedice/cetinventory.git"
+  },
+  "author": "hoodedice",
+  "license": "GPL-2.0",
+  "homepage": "https://bitbucket.org/hoodedice/cetinventory#readme"
+}

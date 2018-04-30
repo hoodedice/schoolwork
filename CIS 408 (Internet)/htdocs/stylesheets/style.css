@@ -1,0 +1,276 @@
+html{
+    height: 100%;
+    width: 100%;
+}
+
+body {
+	background-color: white;
+    font-family: "Calibri", "Ubuntu", "Arial", sans-serif;
+    color: black;
+    height: 100%;
+    margin-left: 5%;
+}
+
+
+h1, h2, h3 {
+	font-family: "Segoe UI", "Ubuntu", sans-serif;
+    font-size: 2.5em;
+    font-weight: normal;
+    color: #2F9FAF;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+nav {
+    color: aqua;
+    background-color: white;
+    margin-bottom: 0.5em;
+}
+
+nav ul {
+    color: grey;
+}
+
+article {
+    padding: 0.75em;
+    padding-top: 0.25em;
+    /*color: #1ce;*/
+    margin-bottom: 1.5em;
+    background-color: black;
+    
+}
+
+hr.footer {
+    border-style: solid;
+    border-top-color: #FFFFFF;
+}
+
+a {
+    font-size: 1.5em;
+    color: coral;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+
+aside {
+	display: flex;
+	color: blue;
+    background-color: grey;
+}
+
+button {
+    height: 50px;
+    width: 120px;
+    background-color: #3C9FB5;
+    color: white;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: white;
+}
+
+.l_login {
+    position: relative;
+    margin-left:20%;
+    padding-left:1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap:wrap;
+    height:35%;
+    width:20%;
+}
+
+.l_login input {
+    background-color: #1a1a1a;
+    border: solid 0.25px #3C9FB5;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 0.25em;
+    margin-right: 5em;
+    padding: 1em, 1em, 1em, 1em;
+}
+
+.l_login input:invalid {
+    border: solid 1.5px #ff0000;
+}
+
+.l_login h3 {
+    margin-top: 0.5em;
+}
+
+.l_login button {
+    height: 50px;
+    width: 120px;
+    position: relative;
+    left:60%;
+}
+
+.reg a {
+    margin-bottom: 0.25em;
+    display: flex;
+    flex-direction: column;
+    color: #1ce;
+    font-size:1em;
+}
+
+.uploadbox {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75em;
+}
+
+.uploadbox h3 {
+    margin:inherit;   
+}
+
+.content {
+    display: inherit;
+    flex-wrap: inherit;
+    width: 75em;
+}
+
+.content textarea {
+    flex-wrap: inherit;
+    background-color: #1a1a1a;
+    border-color: #3C9FB5;
+    border-style: solid;
+    border-width: 0.5px;
+    margin-bottom:0.5em;
+    width: 75em;
+}
+
+.content textarea:focus{
+    box-shadow:0 0 0.5em #3C9FB5;
+}
+
+.content textarea.content {
+    font-family: "monaco", "consolas", "arial", monospace;
+    color: white;
+}
+
+.uploadbtn {
+    display: flex;
+    padding-bottom: 0.5em;
+    width:75em;
+    justify-content: flex-end;
+}
+
+.uploadbtn button {
+    height: 50px;
+    width: 120px;
+    background-color: #3C9FB5;
+    color: white;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: white;
+}
+
+.priv {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 75em;
+}
+
+.priv button {
+    height: 25px;
+    width: 75px;
+    margin-right: 1em;
+}
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== 
+
+@media only screen and (min-width: 480px) {
+
+/* ====================
+    INTERMEDIATE: Menu
+   ==================== 
+
+    nav a {
+        float: left;
+        width: 27%;
+        margin: 0 1.7%;
+        padding: 25px 2%;
+        margin-bottom: 0;
+    }
+
+    nav li:first-child a {
+        margin-left: 0;
+    }
+
+    nav li:last-child a {
+        margin-right: 0;
+    }
+
+/* ========================
+    INTERMEDIATE: IE Fixes
+   ======================== 
+
+    nav ul li {
+        display: inline;
+    }
+
+    .oldie nav a {
+        margin: 0 0.7%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+
+/* ====================
+    WIDE: CSS3 Effects
+   ==================== 
+
+    .header-container,
+    .main aside {
+        -webkit-box-shadow: 0 5px 10px #aaa;
+           -moz-box-shadow: 0 5px 10px #aaa;
+                box-shadow: 0 5px 10px #aaa;
+    }
+
+/* ============
+    WIDE: Menu
+   ============ 
+
+    .title {
+        float: left;
+    }
+
+    nav {
+        float: left;
+        width: 20%;
+    }
+
+/* ============
+    WIDE: Main
+   ============ 
+
+    .main article {
+        float: left;
+        width: 57%;
+    }
+
+    .main aside {
+        float: right;
+        width: 28%;
+    }
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+    Maximal Width
+   =============== 
+
+    .wrapper {
+        width: 1026px; /* 1140px - 10% for margins 
+        margin: 0 auto;
+    }
+}
+*/

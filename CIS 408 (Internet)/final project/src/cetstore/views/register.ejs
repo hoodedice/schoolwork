@@ -1,0 +1,69 @@
+	<div class="registerbox container">
+		<h3>Sign up to borrow equipment:</h3>
+		<form id="register" name="thing" autocomplete="off" method="post" action="/cet/register">
+			<div class="content"></div>
+				<p>
+				<br><label>CSU ID:</label>
+				<br><input type="number" name="csuid" autocomplete="on" max=9999999 min=1000000 required="required" autofocus="on" placeholder="7 Digit CSU ID" onkeyup="showHint(this.value)"></input>
+				<div id = "suggestion"></div>
+				<br><label>First Name:</label>
+				<br><input type="text" id = "fname" name="fname" autocomplete="off" autocapitalize="words" required="required"></input>
+				<br><label>Last Name:</label>
+				<br><input type="text" id = "lname" name="lname" autocomplete="off" autocapitalize="words" required="required"></input>
+				<br><label>Phone Number:</label>
+				<br><input type="tel" id = "phone" name="phone" autocomplete="off" required="required"></input>
+				<br><label>Email:</label>
+				<br><input type="email" id = "email" name="email" autocomplete="off" required="required"></input>
+				<br><label>Status:</label>
+				<br><select id = "status" name="status" required="required">
+						<option value="student">Student</option>
+						<option value="professor">Professor</option>
+				</select>
+				<br><br><button type="submit" class="btn btn-success">Register</button>
+				</p>
+			</div>
+		</form>
+	</div>
+
+<script>
+    
+	var form = document.getElementsByTagName("form")[0];
+    var suggestion = document.getElementById("suggestion");
+
+    function showHint(str) {
+        if (str.length == 0) {
+            suggestion.innerHTML = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var res = JSON.parse(this.response);
+                    console.log(res);
+                    selectedusr = res;
+                    if (res != "") {
+                        suggestion.innerHTML = res[0].csuid;
+						document.getElementById("fname").setAttribute("disabled", "");
+						document.getElementById("lname").setAttribute("disabled", "");
+						document.getElementById("phone").setAttribute("disabled", "");
+						document.getElementById("email").setAttribute("disabled", "");
+						document.getElementById("status").setAttribute("disabled", "");
+						document.getElementsByTagName("button")[0].setAttribute("disabled", "");
+                    } else {
+                        suggestion.style.display = "none";
+                        suggestion.innerHTML = "";
+						document.getElementById("fname").removeAttribute("disabled");
+						document.getElementById("lname").removeAttribute("disabled");
+						document.getElementById("phone").removeAttribute("disabled");
+						document.getElementById("email").removeAttribute("disabled");
+						document.getElementById("status").removeAttribute("disabled");
+						document.getElementsByTagName("button")[0].removeAttribute("disabled");
+                    }
+                }
+            };
+            xmlhttp.open("GET", "register/" + str, true);
+            xmlhttp.send();
+        }
+    }
+
+</script>

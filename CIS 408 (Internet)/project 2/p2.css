@@ -1,0 +1,56 @@
+html{
+    height: 100%;
+    width: 100%;
+
+}
+
+a {
+    color: aqua;
+    text-decoration: none;
+}
+
+body {
+    background-color: black;
+    font-family: 'Segoe UI', Calibri, sans-serif;
+    font-size: 13px;
+    color:white;
+}
+
+nav {
+    font-size: 2em;
+    background-color: #005b71;
+    color: white;
+}
+
+ul{
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    padding-right: 2em;
+    color: white;
+}
+
+nav a:active {
+    background-color: #225b71;
+}
+
+#news{
+    display: inline-block;
+    
+}
+
+img {
+    margin-right: 2em;
+}
+
+#images img{
+    margin-top: 7%;
+    margin-left: 25%;
+}
+
+#images p{
+    margin-top: 0;
+    margin-left: 40%;
+}

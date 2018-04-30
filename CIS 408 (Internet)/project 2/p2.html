@@ -1,0 +1,261 @@
+<!doctype html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel='stylesheet' href='p2.css'>
+	<link rel='script' href='p2.js'>
+	<title> CIS 408 Project 1</title>
+	
+</head>
+
+<body>
+
+	<h1>hoodedice's Website</h1>
+
+<nav>
+	<ul>
+		<li><a href = "#Home" name = "l_home">Home</a></li>
+		<li><a href = "#News" name = "l_news">News</a></li>
+		<li><a href = "#Courses" name = "l_courses">Courses</a></li>
+		<li><a href = "#Rank" name = "l_rank">Class Rank</a></li>
+		<li><a href = "#Contacts" name = "l_contacts">Contacts</a></li>
+	</ul>
+</nav>
+
+	<div id = "home">
+		<h2>Home</h2>
+		<ul>
+			<img src = "images/odin.jpg" align = right>
+			<div id = "images">
+				<img src = "images/cle1.jpg" height = 400 name = "pic1">
+				<img src = "images/cle2.jpg" height = 400 name = "pic2">
+				<img src = "images/cle3.jpg" height = 400 name = "pic3">
+				<p>Click the picture to change it.</p>
+			</div>
+		</ul>
+	</div>
+
+	<div id = "news">
+		<h2>News</h2>
+		<iframe style="visibility:hidden;" onload="this.style.visibility = 'visible';" width = "600" height="600" src="http://www.google.com/news" > </iframe>
+		<iframe style="visibility:hidden;" onload="this.style.visibility = 'visible';" width = "600" height="600" src="http://www.mercurynews.com" > </iframe><br>
+		<iframe style="visibility:hidden;" onload="this.style.visibility = 'visible';" width = "600" height="600" src="http://www.cleveland.com" > </iframe>
+		<iframe style="visibility:hidden;" onload="this.style.visibility = 'visible';" width = "600" height="600" src="http://nba.com/cavaliers/" > </iframe><br>
+
+		<video src="videos/car.mp4" height = 480 width = 800 name = "v_video"></video><br>
+			<button name = "v_play">></button>
+			<button name = "v_pause">||</button>
+			<button name = "v_restart">|></button>
+			<button name = "v_forw">>></button>
+			<button name = "v_revs"><<</button>
+
+	</div>
+
+	<div id = "courses">
+		<h2>Classes I'm taking this semester</h2>
+		<ul>
+			<li>Security</li>
+			<li>Networking</li>
+			<li><a href = "CIS408/CIS408.html">CIS 408: Internet Programming</a></li>
+			<li>Computer Graphics</li>
+			<li>Senior Design</li>
+		</ul>
+		<!--TODO add in course numbers-->
+		
+	</div>
+
+	<div id = "rank">
+		<h2>Rank</h2>
+		<input type = "text" name = "CSUID" placeholder = "CSU ID"></input>
+		<button name = "r_rank">Rank</button>
+		<p name = "res"></p>
+	</div>
+
+	<div id = "contact">
+		<h2>Contact</h2>
+		<ul>
+			<li>hoodedice</li>
+			<li>420 Street</li>
+			<li>State, ZIP</li>
+			<br>
+			<li>Some College</li>
+			<li>Computer Science</li>
+			<li>Some Address</li>
+			<li>Some City</li>
+			<li>Some State</li>
+			<li>Some Zip Code</li>
+			<li>Some Phone Number</li>
+			<li>Some Email ID</li>
+		</ul>
+	</div>
+
+	<script>
+		var home = document.getElementById("home");
+		var news = document.getElementById("news");
+		var courses = document.getElementById("courses");
+		var rank = document.getElementById("rank");
+		var contact = document.getElementById("contact");
+
+		var l_home = document.getElementsByName("l_home")[0];
+		var l_news = document.getElementsByName("l_news")[0];
+		var l_courses = document.getElementsByName("l_courses")[0];
+		var l_rank = document.getElementsByName("l_rank")[0];
+		var l_contacts = document.getElementsByName("l_contacts")[0];
+
+		l_home.addEventListener("click", function() { hideOthers(home) });
+		l_news.addEventListener("click", function() { hideOthers(news) });
+		l_courses.addEventListener("click", function() { hideOthers(courses) });
+		l_rank.addEventListener("click", function() { hideOthers(rank)});
+		l_contacts.addEventListener("click", function() { hideOthers(contact) });
+
+		news.style.display = "none";
+		courses.style.display = "none";
+		rank.style.display = "none";
+		contact.style.display = "none";
+
+		function hideOthers (nothide) {
+			console.log(nothide);
+			home.style.display = "none";
+			news.style.display = "none";
+			courses.style.display = "none";
+			rank.style.display = "none";
+			contact.style.display = "none";
+			nothide.style.display = "";
+		}
+
+		var p1 = document.getElementsByName("pic1")[0];
+		var p2 = document.getElementsByName("pic2")[0];
+		var p3 = document.getElementsByName("pic3")[0];
+
+		p2.style.display = "none";
+		p3.style.display = "none";
+
+		p1.addEventListener("click", function() {p1.style.display = "none"; p2.style.display = "";})
+		p2.addEventListener("click", function() {p2.style.display = "none"; p3.style.display = "";})
+		p3.addEventListener("click", function() {p3.style.display = "none"; p1.style.display = "";})
+
+		//video things
+		var video = document.getElementsByName("v_video")[0];
+		console.log(video);
+
+		var btn_play = document.getElementsByName("v_play")[0];
+		var btn_pause = document.getElementsByName("v_pause")[0];
+		var btn_restart = document.getElementsByName("v_restart")[0];
+		var btn_forw = document.getElementsByName("v_forw")[0];
+		var btn_revs = document.getElementsByName("v_revs")[0];
+		
+		btn_pause.style.color = "black";
+		btn_pause.style.color = "black";
+		btn_restart.style.color = "black";
+		btn_forw.style.color = "black";
+		btn_revs.style.color = "black";
+
+		console.log(btn_play);
+
+		btn_play.addEventListener("click", function() { videoControl("btn_play") });
+		btn_pause.addEventListener("click", function() { videoControl("btn_pause") });
+		btn_restart.addEventListener("click", function() { videoControl("btn_restart") });
+		btn_forw.addEventListener("click", function() { videoControl("btn_forw")});
+		btn_revs.addEventListener("click", function() { videoControl("btn_revs") });
+
+		btn_play.addEventListener("mouseover", function() { showbtn () });
+		btn_pause.addEventListener("mouseover", function() { showbtn() });
+		btn_restart.addEventListener("mouseover", function() { showbtn() });
+		btn_forw.addEventListener("mouseover", function() { showbtn()});
+		btn_revs.addEventListener("mouseover", function() { showbtn() });
+
+		var videoControl = function(btn){
+			if (btn == "btn_play"){
+				video.play();
+				btn_play.style.display = "none";
+				btn_pause.style.display = "";
+			}
+			else if (btn == "btn_pause"){
+				video.pause();
+				btn_play.style.display = "";
+				btn_pause.style.display = "none";
+			}
+			else if (btn == "btn_restart"){
+				video.fastSeek(0);
+			}
+			else if (btn == "btn_forw"){
+				video.fastSeek(video.currentTime + 10);
+			}
+			else if (btn == "btn_revs"){
+				video.fastSeek(video.currentTime - 10);
+			}
+		}
+
+		var showbtn = function(){
+			if (video.paused){btn_play.style.color = "";}
+			else if (video.paused == false) {btn_pause.style.color = "";}
+			btn_restart.style.color = "";
+			btn_forw.style.color = "";
+			btn_revs.style.color = "";
+		}
+
+		//rank stuff
+		var btn_rank = document.getElementsByName("r_rank")[0];
+		var ID = document.getElementsByName("CSUID")[0];
+		var res = document.getElementsByName("res")[0];
+
+		btn_rank.addEventListener("click", function() { getRank(document.getElementsByName("CSUID")[0].innerText) });
+
+		var totals = {	2600000: 28.62,
+						2600001: 30.6,
+						2600002: 33.96,
+						2600003: 27.6,
+						2600004: 30.75,
+						2600005: 27.3,
+						2600006: 29.7,
+						2600007: 31.56,
+						2600008: 31.95,
+						2600009: 25.68,
+						2600010: 31.2,
+						2600011: 32.55,
+						2600012: 31.86,
+						2600013: 29.01,
+						2600014: 31.41,
+						2600015: 29.43,
+						2600016: 32.1,
+						2600017: 28.2,
+						2600018: 23.94,
+						2600019: 30.3,
+						2600020: 30.57,
+						2600021: 24.63
+						};
+
+		var a_rank = {2600000: 16,
+					2600001: 10,
+					2600002: 1,
+					2600003: 18,
+					2600004: 9,
+					2600005: 19,
+					2600006: 13,
+					2600007: 6,
+					2600008: 4,
+					2600009: 20,
+					2600010: 8,
+					2600011: 2,
+					2600012: 5,
+					2600013: 15,
+					2600014: 7,
+					2600015: 14,
+					2600016: 3,
+					2600017: 17,
+					2600018: 22,
+					2600019: 12,
+					2600020: 11,
+					2600021: 21
+					};
+
+			var getRank = function (id){
+				document.getElementsByName("res")[0].insertAdjacentText(totals[i])
+			}
+
+
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+.layouter {
+	display: flex;
+	
+}
+
+.dropcont {
+	max-width: 300px;
+	padding-right: 30px;
+}
+
+.dropbtn {
+	max-width: 200px;
+	max-height: 40px;
+	background-color: #4CAF50;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+	background-color: #4CA000;
+	outline: none;
+}
+
+
+.dropdown {
+	/*padding rules in here*/
+	display:flex;
+	flex-direction: column;
+	box-shadow: 2px 4px 15px 2px grey;
+	max-width: 160px;
+	margin-bottom: 20px;
+}
+
+.menubtns {
+	/*padding rules in here*/
+	display:flex;
+	flex-direction: column;
+	padding-right: 10px;
+
+}
+
+.dropdown-content {
+	/*display: none;*/
+	position: relative;
+	background-color: #f9f9f9;
+	min-height: 45px;
+	max-height: 45px;
+	min-width: 160px;
+	max-width: 160px;
+	overflow: auto;
+	border: none;
+}
+
+.dropdown-content:focus{
+	outline: none;
+}
+
+.dropdown-content:hover {
+	background-color: #4CFF50;
+}
+
+.menubtn-content {
+	/*display: none;*/
+	text-align: left;
+	position: relative;
+	background-color: #7f7f7f;
+	min-height: 45px;
+	max-height: 45px;
+	min-width: 240px;
+	max-width: 240px;
+	overflow: auto;
+	border: none;
+	border-bottom: 1px solid #2E2E2E;
+}
+
+.menubtn-content{
+	outline: none;
+}
+
+.content{
+	font: "Calibri", "Arial", sans-serif;
+	margin-top:20px;
+	margin-left: 20px;
+}
+
+.show {
+	display:block;
+}

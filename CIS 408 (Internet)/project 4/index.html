@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+
+	<title>CIS 408 Project 4</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+
+</head>
+
+<body>
+
+    <div class = layouter>
+        <div class = dropcont>
+            <button class = dropbtn> Navigation </button>
+            <div class = dropdown>
+                <button name = "name" class = dropdown-content>NAME</button>
+                <button name = "address" class = dropdown-content>ADDRESS</button>
+                <button name = "hours" class = dropdown-content>BUSINESS HOURS</button>
+                <button name = "menu" class = dropdown-content>MENU</button>
+                <button name = "feats" class = dropdown-content>SERVICES and FEATURES</button>
+            </div>
+        </div>
+        
+        <div class = menubtns>
+            <button name = "break" class = menubtn-content>Breakfast</button>
+            <button name = "brunch" class = menubtn-content>Brunch</button>
+            <button name = "lunch" class = menubtn-content>Lunch</button>
+            <button name = "dinner" class = menubtn-content>Dinner</button>
+            <button name = "drinks" class = menubtn-content>Drinks</button>
+        </div>
+
+        <!--container for content, added in for styling purposes-->
+        <div class = content>
+            
+        </div>
+    </div>
+
+</body>
+
+<script>
+    //navigation button
+    var nav_btn = document.getElementsByClassName("dropbtn")[0];
+    
+    //navigation dropdown
+    var dropdown = document.getElementsByClassName("dropdown")[0];
+    dropdown.style.display = "none";
+
+    //navigation dropdown contents
+    var dropbtn_name  = document.getElementsByName("name")[0];
+    var dropbtn_addr  = document.getElementsByName("address")[0];
+    var dropbtn_hours  = document.getElementsByName("hours")[0];
+    var dropbtn_menu = document.getElementsByName("menu")[0];
+    var dropbtn_feats  = document.getElementsByName("feats")[0];
+
+    var meal_bre  = document.getElementsByName("break")[0];
+    var meal_bru  = document.getElementsByName("brunch")[0];
+    var meal_lun = document.getElementsByName("lunch")[0];
+    var meal_din  = document.getElementsByName("dinner")[0];
+    var meal_dri  = document.getElementsByName("drinks")[0];
+    
+    var content = document.getElementsByClassName("content")[0];
+    
+    var menubtns = document.getElementsByClassName("menubtns")[0];
+    menubtns.style.display = "none"
+
+    nav_btn.addEventListener("click", function(){ shownavs(dropdown)});
+    //stop listening for events when mouse leaves
+    dropdown.addEventListener("mouseleave", function(){ hidenavs(dropdown)});
+
+    dropbtn_name.addEventListener("click", function(){displaynavoption("name")});
+    dropbtn_addr.addEventListener("click", function(){displaynavoption("address")});
+    dropbtn_hours.addEventListener("click", function(){displaynavoption("hours")});
+    dropbtn_menu.addEventListener("click", function(){ displaynavoption("menubtns")} );
+    dropbtn_feats.addEventListener("click", function(){displaynavoption("feats")});
+
+    meal_bre.addEventListener("click", function(){displaymenuthings("bre", content) });
+    meal_bru.addEventListener("click", function(){displaymenuthings("bru", content) });
+    meal_lun.addEventListener("click", function(){displaymenuthings("lun", content) });
+    meal_din.addEventListener("click", function(){displaymenuthings("din", content) });
+    meal_dri.addEventListener("click", function(){displaymenuthings("dri", content) });
+
+    var hidenavs = function(dropdown){
+        console.log(dropdown);
+        dropdown.style.display = "none";
+    }
+
+    var shownavs = function(dropdown){
+        console.log(dropdown);
+        dropdown.style.display = "";
+    }
+    
+    
+
+
+    //json parsing bits
+    var jsons = {"business_id": "5UmKMjUEUNdYWqANhGckJw", "full_address": "4734 Lebanon Church Rd\nDravosburg, PA 15034", "hours": {"Friday": {"close": "21:00", "open": "11:00"}, "Tuesday": {"close": "21:00", "open": "11:00"}, "Thursday": {"close": "21:00", "open": "11:00"}, "Wednesday": {"close": "21:00", "open": "11:00"}, "Monday": {"close": "21:00", "open": "11:00"}}, "open": true, "categories": ["Fast Food", "Restaurants"], "city": "Dravosburg", "review_count": 4, "name": "Mr Hoagie", "neighborhoods": [], "longitude": -79.9007057, "state": "PA", "stars": 4.5, "latitude": 40.3543266, "attributes": {"Take-out": true, "Drive-Thru": false, "Good For": {"dessert": false, "latenight": true, "lunch": true, "dinner": true, "brunch": true, "breakfast": true}, "Caters": false, "Noise Level": "average", "Takes Reservations": true, "Delivery": false, "Ambience": {"romantic": true, "intimate": false, "classy": false, "hipster": true, "divey": false, "touristy": false, "trendy": true, "upscale": false, "casual": true}, "Parking": {"garage": false, "street": true, "validated": false, "lot": true, "valet": false}, "Has TV": true, "Outdoor Seating": true, "Attire": "casual", "Alcohol": "none", "Waiter Service": true, "Accepts Credit Cards": true, "Good for Kids": true, "Good For Groups": true, "Price Range": 2}, "type": "business"};
+
+    //xml parsing bits
+    var displaymenuthings = function(meal, content){
+        console.log(meal);
+        xhttp = new XMLHttpRequest();
+        //http requests weren't working locally
+        xhttp.open("GET", "https://gist.githubusercontent.com/anonymous/b35b031eef61d24df4889db688664420/raw/24bbe899c86c4f1a8c209c20d1fcad9628ec148b/restaurant.xml", true);
+        xhttp.overrideMimeType('text/xml');
+        xhttp.send(null);
+        xhttp.onreadystatechange = function(){
+            switch (xhttp.readyState){
+                case 4:
+                    xmls = xhttp.responseXML;
+                    processxml(xmls, meal, content);
+                break;
+            }
+        }
+    }
+
+    var processxml = function(xmls, meal, content){ 
+        if (meal == "bre"){
+            table = "<h1>Breakfast</h1><table>"+"<tr>"+"<th>Type</th><th>Name</th><th>Price</th></tr>";
+            for (i = 1; i < 12; i+=2){
+                table += "<tr><td>" + xmls.getElementsByTagName("BREAKFAST")[0].childNodes[i].tagName + " </td><td>" + xmls.getElementsByTagName("BREAKFAST")[0].childNodes[i].childNodes[0].textContent + " </td><td>" + xmls.getElementsByTagName("BREAKFAST")[0].childNodes[i].childNodes[1].textContent + " </td></tr>";
+                console.log(xmls.getElementsByTagName("BREAKFAST")[0].childNodes[i].childNodes[1].textContent);
+            }
+        }
+        if (meal == "bru"){
+            table = "<h1>Brunch</h1><table>"+"<tr>"+"<th>Type</th><th>Name</th><th>Price</th></tr>";
+            for (i = 1; i < 18; i+=2){
+                table += "<tr><td>" + xmls.getElementsByTagName("BRUNCH")[0].childNodes[i].tagName + " </td><td>" + xmls.getElementsByTagName("BRUNCH")[0].childNodes[i].childNodes[0].textContent + " </td><td>" + xmls.getElementsByTagName("BRUNCH")[0].childNodes[i].childNodes[1].textContent + " </td></tr>";
+                console.log(xmls.getElementsByTagName("BRUNCH")[0].childNodes[i].childNodes[1].textContent);
+            }
+        }
+        if (meal == "lun"){
+            table = "<h1>Lunch</h1><table>"+"<tr>"+"<th>Type</th><th>Name</th><th>Price</th></tr>";
+            for (i = 1; i < 18; i+=2){
+                table += "<tr><td>" + xmls.getElementsByTagName("LUNCH")[0].childNodes[i].tagName + " </td><td>" + xmls.getElementsByTagName("LUNCH")[0].childNodes[i].childNodes[0].textContent + " </td><td>" + xmls.getElementsByTagName("LUNCH")[0].childNodes[i].childNodes[1].textContent + " </td></tr>";
+                console.log(xmls.getElementsByTagName("LUNCH")[0].childNodes[i].childNodes[1].textContent);
+            }
+        }
+        if (meal == "din"){
+            table = "<h1>Dinner</h1><table>"+"<tr>"+"<th>Type</th><th>Name</th><th>Price</th></tr>";
+            for (i = 1; i < 24; i+=2){
+                table += "<tr><td>" + xmls.getElementsByTagName("DINNER")[0].childNodes[i].tagName + " </td><td>" + xmls.getElementsByTagName("DINNER")[0].childNodes[i].childNodes[0].textContent + " </td><td>" + xmls.getElementsByTagName("DINNER")[0].childNodes[i].childNodes[1].textContent + " </td></tr>";
+                console.log(xmls.getElementsByTagName("DINNER")[0].childNodes[i].childNodes[1].textContent);
+            }
+        }
+        if (meal == "dri"){
+            table = "<h1>Drinks</h1><table>"+"<tr>"+"<th>Type</th><th>Name</th><th>Price</th></tr>";
+            for (i = 1; i < 18; i+=2){
+                table += "<tr><td>" + xmls.getElementsByTagName("DRINKS")[0].childNodes[i].tagName + " </td><td>" + xmls.getElementsByTagName("DRINKS")[0].childNodes[i].childNodes[0].textContent + " </td><td>" + xmls.getElementsByTagName("DRINKS")[0].childNodes[i].childNodes[1].textContent + " </td></tr>";
+                console.log(xmls.getElementsByTagName("DRINKS")[0].childNodes[i].childNodes[1].textContent);
+            }
+        }
+
+        table += "</table>"; 
+        content.innerHTML = table;
+        content.style.display = "";
+
+    }
+
+    var displaynavoption = function(btn){
+        menubtns.style.display = "none";
+        content.style.display = "none";
+        if (btn == "menubtns") {
+            menubtns.style.display = "<h1>Menu</h1>";
+            menubtns.style.display = "";
+        }
+        if (btn == "name") {
+            content.innerHTML = "<h1>Name of the Restaurant</h1> " + jsons.name;
+            content.style.display = "";
+        }
+        if (btn == "address") {
+            content.innerHTML = "<h1>Address</h1>" + jsons.full_address;
+            content.style.display = "";
+        }
+        if (btn == "hours") {
+            //make a table here
+            
+            var table = "<h1>Hours</h1>";
+            table += "<table>"+"<tr>"+"<th>Day</th><th>Open</th><th>Close</th></tr>";
+            table += "<tr><td>"+ "Monday " + "</td><td>" + jsons.hours.Monday.open + " </td><td>" + jsons.hours.Monday.close + " </td></tr>"; 
+            table += "<tr><td>"+ "Tuesday " + "</td><td>" + jsons.hours.Tuesday.open + " </td><td>" + jsons.hours.Tuesday.close + " </td></tr>"; 
+            table += "<tr><td>"+ "Wednesday " + "</td><td>" + jsons.hours.Wednesday.open + " </td><td>" + jsons.hours.Wednesday.close + " </td></tr>"; 
+            table += "<tr><td>"+ "Thursday " + "</td><td>" + jsons.hours.Thursday.open + " </td><td>" + jsons.hours.Thursday.close + " </td></tr>"; 
+            table += "<tr><td>"+ "Friday " + "</td><td>" + jsons.hours.Friday.open + " </td><td>" + jsons.hours.Friday.close + " </td></tr>"; 
+            table += "</table>";
+            content.innerHTML = table;
+            content.style.display = "";
+        }
+        if (btn == "feats") {
+            //for x in keys
+            //if  x == true, print
+            content.innerHTML = "<h1>Services</h1>";
+            for (x in jsons.attributes){
+                console.log(x);
+                console.log(jsons.attributes[x]);
+
+                if (jsons.attributes[x] == true) {
+                    content.innerHTML += x + "<br>";
+                }
+            }
+            content.style.display = "";
+        }
+    }
+
+</script>
+
+</html>

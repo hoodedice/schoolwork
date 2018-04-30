@@ -1,0 +1,117 @@
+<div class="content container">
+    <h2> Dash </h2>
+    <input type="text" name="search" autocomplete="on" required="required" placeholder="Search" autofocus="on" onkeyup="showHint(this.value)"></input>
+    <p><a href="#select" id="txtHint"></a></p>
+</div>
+
+<div id="details" class="dashbox">
+    <h3>Name</h3>
+    <h4>State</h4>
+
+    <button id="itmstat">Check in</button>
+    <p name="res"></p>
+</div>
+
+<div id="loan-out" class="dashbox">
+    <form id="loan-out" name="loan-out" autocomplete="off" method="post" action="/cet/loan-out">
+        <h3>Name</h3>
+        <input type="text" id="item" name="item" autocomplete="off" autocapitalize="words" required="required"></input>
+        <button id="itmstat">Check out</button>
+    </form>
+</div>
+
+<script>
+    var selectedusr;
+    var inStock = false;
+
+    var loan = document.getElementById("loan");
+    loan.style.display = "none";
+
+    var details = document.getElementById("details");
+    details.style.display = "none";
+
+    var tspan = document.getElementById("txtHint");
+    tspan.addEventListener("click", function () { displayClient() });
+
+    var loanbtn = document.getElementById("itmstat");
+    loanbtn.addEventListener("click", function () { displayLoan() });
+
+    function showHint(str) {
+        if (str.length == 0) {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var res = JSON.parse(this.response);
+                    console.log(res);
+                    selectedusr = res;
+                    if (res != "") {
+                        document.getElementById("txtHint").innerHTML = "CSU ID: " + res[0].csuid + ", Name: " + res[0].fname + " " + res[0].lname;
+                    } else {
+                        details.style.display = "none";
+                        document.getElementById("txtHint").innerHTML = "";
+                    }
+                }
+            }
+            xmlhttp.open("GET", "liststudents/" + str, true);
+            xmlhttp.send();
+        }
+    }
+
+    function displayClient() {
+        console.log(selectedusr[0].check);
+
+        details.getElementsByTagName("h3")[0].innerHTML = selectedusr[0].fname + " " + selectedusr[0].lname;
+        details.style.display = "";
+        document.getElementById("txtHint").style.display = "none";
+
+        //AJAX request to check inventory status with relation to selected individual
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = JSON.parse(this.response);
+                console.log(res);
+                selectedusr = res;
+                if (res != "") {
+                    document.getElementsByTagName("h4")[0].innerHTML = res[0].item;
+                    document.getElementById("itmstat").innerHTML = "Check in";
+                    inStock = false;
+                } else {
+                    document.getElementsByTagName("h4")[0].innerHTML = "No items loaned out.";
+                    document.getElementById("itmstat").innerHTML = "Check out";
+                    inStock = true;
+                }
+            }
+        }
+        xmlhttp.open("GET", "listitems/" + selectedusr.csuid, true);
+        xmlhttp.send();
+    }
+
+    function displayLoan() {
+        if (inStock == false){
+            
+        }
+
+        //AJAX request to check inventory status and fetch items in inventory
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = JSON.parse(this.response);
+                console.log(res);
+                selectedusr = res;
+                if (res != "") {
+                    document.getElementsByTagName("h4")[0].innerHTML = res[0].item;
+                    document.getElementById("itmstat").innerHTML = "Check in";
+                } else {
+                    document.getElementsByTagName("h4")[0].innerHTML = "No items loaned out.";
+                    document.getElementById("itmstat").innerHTML = "Check out";
+                }
+            }
+        }
+        xmlhttp.open("GET", "listinv/", true);
+        xmlhttp.send();
+    }
+
+</script>
